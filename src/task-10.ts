@@ -109,11 +109,66 @@
 // console.log(profile)
 // console.log(updated)
 
+// interface Shipping {
+//   city: string;
+//   street: string;
+//   zip: string;
+//   phone?: string; // номер телефону може бути відсутнім
+// }
+
+// interface OrderProfile {
+//   id: number;
+//   customer: string;
+//   total: number;
+//   shipping: Shipping;
+// }
+
+
+// function updateOrder(
+//   current: OrderProfile,
+//   updates: Partial<Omit<OrderProfile, "shipping">> & { shipping?: Partial<Shipping> }):
+//   Readonly<OrderProfile> {
+//   return {
+//     ...current,
+//     ...updates,
+//     shipping: updates.shipping ? { ...current.shipping, ...updates.shipping } : current.shipping
+//   }
+// }
+
+// const currentProfile: OrderProfile = {
+//   id: 2,
+//   customer: "Kostya",
+//   total: 40,
+//   shipping:
+//   {
+//      city: "Kyiv",
+//     street: "Mart",
+//     zip: "03186",
+//     phone: "063850",
+//    },
+// }
+
+// const updatedProfile = updateOrder(currentProfile, {
+//   customer: "Vova",
+//   shipping: {
+//     city: "Lviv"
+//   }
+// })
+ 
+// console.log(currentProfile);
+// console.log(updatedProfile);
+
 interface Shipping {
   city: string;
   street: string;
   zip: string;
-  phone?: string; // номер телефону може бути відсутнім
+  phone?: string;
+}
+
+interface Billing {
+  cardNumber: string;
+  expiration: string;
+  cvv?: string;
 }
 
 interface OrderProfile {
@@ -121,39 +176,44 @@ interface OrderProfile {
   customer: string;
   total: number;
   shipping: Shipping;
+  billing: Billing;
 }
-
 
 function updateOrder(
   current: OrderProfile,
-  updates: Partial<Omit<OrderProfile, "shipping">> & { shipping?: Partial<Shipping> }):
-  Readonly<OrderProfile> {
+  updated: Partial<Omit<OrderProfile, "shipping" | "billing">>
+    & { shipping?: Partial<Shipping> } & {billing?: Partial<Billing>})
+  : Readonly<OrderProfile> {
   return {
-    ...current,
-    ...updates,
-    shipping: updates.shipping ? { ...current.shipping, ...updates.shipping } : current.shipping
-  }    
+    ...current, 
+    ...updated,
+    shipping: updated.shipping ? {...current.shipping, ...updated.shipping} : current.shipping,
+    billing: updated.billing ? {...current.billing, ...updated.billing} : current.billing,
+  }
 }
 
-const currentProfile: OrderProfile = {
-  id: 2,
+const order: OrderProfile = {
+  id: 1,
   customer: "Kostya",
   total: 40,
-  shipping: 
-  {
-     city: "Kyiv",
-    street: "Mart",
+  shipping: {
+    city: "Kyiv",
+    street: "Kyivska",
     zip: "03186",
     phone: "063850",
-   },
+  },
+  billing: {
+    cardNumber: "1234",
+    expiration: "1234",
+    cvv: "1234",
+  },   
 }
 
-const updatedProfile = updateOrder(currentProfile, {
+const updated = updateOrder(order, {
   customer: "Vova",
-  shipping: {
-    city: "Lviv"
-  }
-})
- 
-console.log(currentProfile);
-console.log(updatedProfile);
+  shipping: { city: "Lviv" },
+  billing: { expiration: "12/30" }
+});
+
+console.log(order);
+console.log(updated);
