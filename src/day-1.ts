@@ -82,5 +82,46 @@ function toStringValue(value: number | boolean): string {
 }
 
 
-type Role = "admin" | "user" | "guest";
-let currentRole: Role = "admin"
+// type Role = "admin" | "user" | "guest";
+// let currentRole: Role = "admin"
+
+
+enum Role {
+  Admin,
+  Moderator,
+  User,
+  Guest,
+}
+
+let role: Role = Role.Admin;
+
+
+interface Human {
+  name: string;
+  age: number;
+}
+
+type Employee = Human & { salary: number }
+let worker: Employee = {name: "Kostya", age: 40, salary: 3000}
+
+
+function logInput(value: string | number | boolean): string {
+  if (typeof value === "string") {
+    return value
+  } else if (typeof value === "number") {
+    return value.toString()
+  } else {
+    return value ? "true" : "false"
+  } 
+}
+
+
+interface Bird { fly: () => void }
+interface Fish { swim: () => void }
+function move(animal: Bird | Fish): void {
+  if ("swim" in animal) {
+    animal.swim()
+  } else {
+    animal.fly()
+  }
+}
