@@ -57,3 +57,30 @@ const favoriteCities: string[] = ["Kyiv", "Lviv", "Paris"];
 
 
 
+const temperatures: number[] = [10, 20, 30];
+const featureFlags: boolean[] = [true, false];
+
+interface User1 {
+  id: number;
+  name: string;
+}
+const users: User1[] = [
+  { id: 1, name: "Kostya" },
+  {id: 2, name: "Roma"},
+]
+
+ 
+const coordination: [number, number] = [40, 45];
+const response: [number, string, boolean] = [30, "ok", true];
+
+
+function toStringValue(value: number | boolean): string {
+  if (typeof value === "number") {
+    return value.toString()
+  }
+  return value ? "true" : "false"
+}
+
+
+type Role = "admin" | "user" | "guest";
+let currentRole: Role = "admin"
