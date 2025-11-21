@@ -129,31 +129,50 @@
 //             : "Unknown"
 // }
 
-function concatStrings(a: string, b?: string): string {
-    return b ? a + b : a;
-}
+// function concatStrings(a: string, b?: string): string {
+//     return b ? a + b : a;
+// }
 
-function power(base: number, exponent: number = 2): number {
-    return base ** exponent;
-}
+// function power(base: number, exponent: number = 2): number {
+//     return base ** exponent;
+// }
 
-type StringOperator = (a: string, b: string) => string;
-const concat: StringOperator = (a, b) => a + b;
-const interpolate: StringOperator = (a, b) => `${a}, ${b}!`
+// type StringOperator = (a: string, b: string) => string;
+// const concat: StringOperator = (a, b) => a + b;
+// const interpolate: StringOperator = (a, b) => `${a}, ${b}!`
 
 
-function filterNumbers(arr: number[], predicate: (n: number) => boolean): number[]  {
+// function filterNumbers(arr: number[], predicate: (n: number) => boolean): number[]  {
+//     return arr.filter(predicate);
+// }
+
+// const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+// const evenNumbers = filterNumbers(numbers, n => n % 2 === 0)
+// console.log(evenNumbers);
+// const oddNumbers = filterNumbers(numbers, n => n % 2 !== 0);
+// console.log(oddNumbers);
+// const greaterThanThree = filterNumbers(numbers, n => n > 3)
+// console.log(greaterThanThree);
+
+// const double = (n: number): number => n * 2
+
+
+function filterStrings(arr: string[], predicate: (s: string) => boolean): string[] {
     return arr.filter(predicate);
 }
+const fruits = ["apple", "banana", "pear", "kiwi"];
+const longFruits = filterStrings(fruits, s => s.length > 4);
+console.log(longFruits); 
 
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-const evenNumbers = filterNumbers(numbers, n => n % 2 === 0)
-console.log(evenNumbers);
-const oddNumbers = filterNumbers(numbers, n => n % 2 !== 0);
-console.log(oddNumbers);
-const greaterThanThree = filterNumbers(numbers, n => n > 3)
-console.log(greaterThanThree);
+type NumberOperator = (a: number, b: number) => number;
+const add: NumberOperator = (a, b) => a + b;
+const subtract: NumberOperator = (a, b) => a - b;
+const multiply: NumberOperator = (a, b) => a * b;
 
-const double = (n: number): number => n * 2
+function processNumbers(a: number, b: number, op: NumberOperator): number {
+    return op(a,b)
+}
 
-
+console.log(processNumbers(10, 5, add));       // 15
+console.log(processNumbers(10, 5, subtract));  // 5
+console.log(processNumbers(10, 5, multiply));  // 50
