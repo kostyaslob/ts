@@ -69,19 +69,34 @@ function makeSound(pet: Dog | Cat): void {
 
 type Input = string | number[] | null
 function getLength(value: Input): number {
-    return typeof value === "string" && "array" ? value.length : 0;
+    // return typeof value === "string"
+    //     ? value.length
+    //     : Array.isArray(value)
+    //         ? value.length
+    //         : 0
+    
+    if (typeof value === "string") {
+        return value.length
+    }
+    if (Array.isArray(value)) {
+        return value.length
+    }
+    return 0;
 }
 
 function toBoolean(value: unknown): boolean {
-    if (typeof value === "string" && value.length !== 0) {
-        return true
-    } else if (typeof value === "number" && value > 0) {
-        return true
-    } else if (value) {
-        return true
-    } else if (typeof value === "object") {
-        return true
-    } else {
-        return false 
+    if (typeof value === "string") {
+        return value.length > 0
     }
+    if (typeof value === "number" ) {
+        return value > 0
+    }
+    if (typeof value === "boolean") {
+        return value
+    }
+    if (value !== 0 && typeof value === "object") {
+        return true
+    } 
+    return false 
+    
 }
