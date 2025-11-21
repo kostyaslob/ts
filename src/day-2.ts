@@ -34,47 +34,74 @@
 //
 
 
-function addSmart(a: unknown, b: unknown): unknown {
-    if (typeof a === "number" && typeof b === "number") {
-        return a + b
-    } else if (typeof a === "string" || typeof b === "string") {
-        return a + b
-    } else {
-        return "ERROR"
-    }
-}
+// function addSmart(a: unknown, b: unknown): unknown {
+//     if (typeof a === "number" && typeof b === "number") {
+//         return a + b
+//     } else if (typeof a === "string" || typeof b === "string") {
+//         return String(a) + String(b)
+//     } else {
+//         return "ERROR"
+//     }
+// }
 
-type ApiResponse = string | number | null;
-function handleResponse(value: ApiResponse): string {
-    if (typeof value === "number") {
-        return `Number: ${value}`
-    } else if (typeof value === "string") {
-        return `String: ${value}`
-    } else {
-        return "Empty"
-    }
-}
-
-
-interface Dog { bark: () => void }
-interface Cat { meow: () => void }
-function makeSound(pet: Dog | Cat): void {
-    if ("bark" in pet) {
-        pet.bark() 
-    } else {
-        pet.meow()
-    }
-}
+// type ApiResponse = string | number | null;
+// function handleResponse(value: ApiResponse): string {
+//     if (typeof value === "number") {
+//         return `Number: ${value}`
+//     } else if (typeof value === "string") {
+//         return `String: ${value}`
+//     } else {
+//         return "Empty"
+//     }
+// }
 
 
-type Input = string | number[] | null
-function getLength(value: Input): number {
-    // return typeof value === "string"
-    //     ? value.length
-    //     : Array.isArray(value)
-    //         ? value.length
-    //         : 0
+// interface Dog { bark: () => void }
+// interface Cat { meow: () => void }
+// function makeSound(pet: Dog | Cat): void {
+//     if ("bark" in pet) {
+//         pet.bark()
+//     } else {
+//         pet.meow()
+//     }
+// }
+
+
+// type Input = string | number[] | null
+// function getLength(value: Input): number {
+//     // return typeof value === "string"
+//     //     ? value.length
+//     //     : Array.isArray(value)
+//     //         ? value.length
+//     //         : 0
     
+//     if (typeof value === "string") {
+//         return value.length
+//     }
+//     if (Array.isArray(value)) {
+//         return value.length
+//     }
+//     return 0;
+// }
+
+// function toBoolean(value: unknown): boolean {
+//     if (typeof value === "string") {
+//         return value.length > 0
+//     }
+//     if (typeof value === "number" ) {
+//         return value > 0
+//     }
+//     if (typeof value === "boolean") {
+//         return value
+//     }
+//     if (value !== 0 && typeof value === "object") {
+//         return true
+//     }
+//     return false
+    
+// }
+
+function safeLength(value: unknown): number {
     if (typeof value === "string") {
         return value.length
     }
@@ -84,19 +111,20 @@ function getLength(value: Input): number {
     return 0;
 }
 
-function toBoolean(value: unknown): boolean {
-    if (typeof value === "string") {
-        return value.length > 0
+type Input = number | string | boolean | null | undefined;
+function describeValue(value: Input): string {
+    if (typeof value === "number") {
+        return `This is a number: ${value}`
     }
-    if (typeof value === "number" ) {
-        return value > 0
+    if (typeof value === "string") {
+        return `This is a string: ${value}`
     }
     if (typeof value === "boolean") {
-        return value
+        return `This is ${value}`
     }
-    if (value !== 0 && typeof value === "object") {
-        return true
-    } 
-    return false 
-    
+    return value === null
+        ? "This is null"
+        : value === undefined
+            ? "This is undefined" 
+            : "Unknown"            
 }
