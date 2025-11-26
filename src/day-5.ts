@@ -25,14 +25,20 @@
 // }
 
 
-function pluckMultiple<T, K extends keyof T>(arr: T[], keys: K[]): T[K][] {
-    return arr.flatMap(item => keys.map(key => item[key]))
+// function pluckMultiple<T, K extends keyof T>(arr: T[], keys: K[]): T[K][] {
+//     return arr.flatMap(item => keys.map(key => item[key]))
+// }
+
+// function mergeObjects<T, U>(obj1: T, obj2: U): T & U {
+//     return {...obj1, ...obj2}
+// }
+
+// function pickValues<T, K extends keyof T>(obj: T, keys: K[]): T[K][]  {
+//     return keys.map(key => obj[key])
+// }
+
+
+function combineProps<T extends object>(arrayOfObjects: T[]): unknown[] {
+    return arrayOfObjects.flatMap(item => Object.keys(item).map(key => item[key as keyof T]))
 }
 
-function mergeObjects<T, U>(obj1: T, obj2: U): T & U {
-    return {...obj1, ...obj2}
-}
-
-function pickValues<T, K extends keyof T>(obj: T, keys: K[]): T[K][]  {
-    return keys.map(key => obj[key])
-}
