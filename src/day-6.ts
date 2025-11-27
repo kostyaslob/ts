@@ -115,31 +115,46 @@
 // settings.theme = "light";
 // settings.layout.footer = false;
 
-type User = {
+// type User = {
+//   id: number;
+//   name?: string;
+//   email?: string;
+//   age: number;
+// };
+
+
+// type OptionalKey<T> = {
+//     [K in keyof T]: {} extends Pick<T, K> ? K : never
+// }[keyof T]
+
+
+
+// type User2 = {
+//   id: number;
+//   name: string;
+//   email: string;
+// };
+
+// function updateObject<T, K extends keyof T>(obj: T, key: K, value: T[K]): T {
+//     return {...obj, [key]: value}
+// }
+
+// const user: User2 = { id: 1, name: "Kostya", email: "kkk@k.ua" };
+// const updatedUser = updateObject(user, "name", "Ivan");
+// console.log(updatedUser);
+// console.log(user);
+
+type Model = {
   id: number;
-  name?: string;
-  email?: string;
-  age: number;
+  title: string;
+  published: boolean;
+  views: number;
 };
 
+type PickByType<T, U> = Pick<
+    T,
+    {
+    [K in keyof T]: T[K] extends U ? K : never
+}[keyof T]>;
 
-type OptionalKey<T> = {
-    [K in keyof T]: {} extends Pick<T, K> ? K : never
-}[keyof T]
-
-
-
-type User2 = {
-  id: number;
-  name: string;
-  email: string;
-};
-
-function updateObject<T, K extends keyof T>(obj: T, key: K, value: T[K]): T {
-    return {...obj, [key]: value}
-}
-
-const user: User2 = { id: 1, name: "Kostya", email: "kkk@k.ua" };
-const updatedUser = updateObject(user, "name", "Ivan");
-console.log(updatedUser);
-console.log(user);
+type NumberFields = PickByType<Model, number>;
