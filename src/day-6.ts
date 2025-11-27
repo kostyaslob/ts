@@ -115,3 +115,14 @@
 // settings.theme = "light";
 // settings.layout.footer = false;
 
+type User = {
+  id: number;
+  name?: string;
+  email?: string;
+  age: number;
+};
+
+
+type OptionalKey<T> = {
+    [K in typeof T]: {} extends Pick<T, K> ? K : never
+} [keyof T]
