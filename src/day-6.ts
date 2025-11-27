@@ -160,34 +160,44 @@
 // type NumberFields = PickByType<Model, number>;
 
 
-function safeGet<T extends object, K extends keyof T>(obj: T, key: K): T[K] | undefined {
-    if (key in obj) {
-        return obj[key];
-    }
-    return undefined
-}
+// function safeGet<T extends object, K extends keyof T>(obj: T, key: K): T[K] | undefined {
+//     if (key in obj) {
+//         return obj[key];
+//     }
+//     return undefined
+// }
 
-type User = {
-  id: number;
-  name?: string;
-  email?: string;
+// type User = {
+//   id: number;
+//   name?: string;
+//   email?: string;
+// };
+
+// const user: User = { id: 1, name: "Kostya" };
+
+// // безпечне отримання існуючого ключа
+// const name = safeGet(user, "name"); // string | undefined
+
+// // безпечне отримання обов'язкового ключа
+// const id = safeGet(user, "id"); // number
+
+// // ❌ TypeScript не дозволить такого
+// // const wrong = safeGet(user, "age"); // помилка, бо ключа "age" немає
+
+
+// function safeGet22<T, K extends keyof T>(obj: T, key: K): T[K] | undefined {
+//   if (obj && typeof obj === "object" && key in obj) {
+//     return (obj as any)[key];
+//   }
+//   return undefined;
+// }
+
+type Config = {
+  host?: string;
+  port?: number;
+  protocol?: "http" | "https";
 };
 
-const user: User = { id: 1, name: "Kostya" };
-
-// безпечне отримання існуючого ключа
-const name = safeGet(user, "name"); // string | undefined
-
-// безпечне отримання обов'язкового ключа
-const id = safeGet(user, "id"); // number
-
-// ❌ TypeScript не дозволить такого
-// const wrong = safeGet(user, "age"); // помилка, бо ключа "age" немає
-
-
-function safeGet22<T, K extends keyof T>(obj: T, key: K): T[K] | undefined {
-  if (obj && typeof obj === "object" && key in obj) {
-    return (obj as any)[key];
-  }
-  return undefined;
-}
+type RequiredConfig = Required<Config>;
+type ConfigWithoutProtocol = Omit<Config, "protocol">
+type RequiredConfigWithoutProtocol = Required<Omit<Config, "protocol">>
